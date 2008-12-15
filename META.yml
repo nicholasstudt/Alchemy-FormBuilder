@@ -1,0 +1,21 @@
+# http://module-build.sourceforge.net/META-spec.html
+#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
+name:         Alchemy-FormBuilder
+version:      0.63
+version_from: lib/Alchemy/FormBuilder.pm
+installdirs:  site
+requires:
+    Apache2::Request:              0
+    Date::Calc:                    0
+    File::Copy:                    0
+    File::Path:                    0
+    KrKit:                         0
+    Lex:                           0
+    MIME::Lite:                    3.01
+    Net::SMTP:                     0
+    Parse::Yapp::Driver:           1.05
+    POSIX:                         0
+    Text::Wrap:                    0
+
+distribution_type: module
+generated_by: ExtUtils::MakeMaker version 6.17

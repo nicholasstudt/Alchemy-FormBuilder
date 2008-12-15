@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<?xml version="1.0" encoding="utf-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>
+##PAGE_TITLE##
+	</title>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<style type="text/css">
+	body {
+		font-family: sans-serif;
+		background-color: #ddd;
+	}
+
+	table {
+		border-collapse: collapse;
+	}
+
+	#topnav {
+		width: 90%;
+		margin: 0px auto;
+	}
+
+	#content {
+		width: 90%;
+		background: #fff;
+		border: 1px solid #000;
+		margin: 0 auto;
+		padding: .5em;
+	}
+	
+	.navlist {
+		padding: 0px 0px 3px 5px;
+		margin: 0px;
+	}
+
+	.navlist li {
+		list-style: none;
+		margin: 0px;
+		display: inline;
+	}
+
+	.navlist li a {
+		font-weight: bold;
+		font-size: .8em;	
+		color: #000;
+		background: #cde;
+		padding: 3px 0.5em;
+		margin-left: 3px;
+		border: 1px solid #000;
+		border-bottom: none;
+		text-decoration: none;
+	}
+
+	.navlist li a:hover { background: #aae; }
+
+	.hdr, .chdr, .rhdr { background: #bff; border-bottom: 1px solid black; }
+	.shd, .cshd, .rshd { background: #dee; }
+	.dta, .cdta, .rdta { background: #fff; }
+	
+	.chdr, .cshd, .cdta { text-align: center; }
+	.rhdr, .rshd, .rdta { text-align: right; }
+	
+	.required { color: red; background: #fff; }
+
+	.error {
+		font-size: .9em;
+		width: 90%;
+		border: 2px dashed red;
+		background: #fcd;
+		margin: 3px auto;
+	}
+	.error h1 { margin-left: 2em; }
+
+	div {
+		-moz-border-radius: .6em;
+		border-radius: .6em;
+	}
+</style>
+</head>
+<body>
+
+<div id="topnav">
+	<ul class="navlist">
+		<li><a href="/admin/forms">Forms Admin</a></li>
+		<li><a href="/admin/forms/defaults">Defaults</a></li>
+		<li><a href="/admin/forms/types">Types</a></li>
+		<li><a href="/admin/forms/validate">Validate</a></li>
+		<li><a href="/form/">Viewer</a></li>
+	</ul>
+</div>
+
+<div id="content">
+	<!-- Content -->
+##BODY_TEXT##
+	<!-- /Content -->
+</div>
+
+</body>
+</html>

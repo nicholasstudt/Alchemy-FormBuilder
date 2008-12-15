@@ -1,0 +1,388 @@
+Revision history for Perl extension Alchemy::FormBuilder.
+
+Todo:
+	- Limit output file formats to csv and xml. These two formats allow
+	  the maximum possible utility. 
+	- See about making the form creation take just a file and not make
+	  the user generate the form element by elment. 
+
+ChangeLog:
+
+0.65 Thu Sep 18 21:04:18 CDT 2008
+	!!! WARNING THIS REQURES DATABASE CHANGES FROM 0.64 !!!
+	!!! The convert_to_065.sql shows the schema changes !!!
+	- Fixing @ISA inheritance.
+	- STDERR -> $r->log_error 
+	- Remove Log variable.
+	- Remove Excel Support, use a CSV export if you need Excel.
+	- Remove Parser/Lexer.
+	- Remove pre/post text on a form -- HTML element does this.
+	- Remove txt/html template support.
+	- Cleaned up the Defualt template -- using the one with tabs.
+	- Select boxes no longer lose their values.
+	- Preview/View now use the same code, no duplication.
+	- Save as multiple text/csv/html files removed.
+	- File_Root variable removed. Uses document_root now.
+	- FB_Default_Page unused - removed.
+	- Absorb form_default_elements into form_element.
+
+0.64 Fri May 25 10:44:06 CDT 2007
+	- Fixed CSV output.
+
+0.63 Fri Sep  2 08:57:28 CDT 2005
+	- Updating to the Apache2::* naming convention for mod_perl 2.000001
+
+0.62 Wed Jan 26 08:11:54 CST 2005
+	- Fixed a newline bug in the output module.
+
+0.61 Tue Dec 28 09:47:08 CST 2004
+	- Fixing problems.
+	- Multiple select now works again.
+
+0.60 Sun Dec 26 12:36:31 CST 2004
+	- ported to mod_perl 2
+	- Need to fix the file upload later.
+
+0.49 Fri Oct 01 21:00:12 MST 2004
+	Added handling for errors (undefined stuff)....
+
+0.48 Sat Sep 11 17:04:23 MST 2004
+	- Added confirm_page column to form_data table
+	  ALTER TABLE form_data ADD column confirm_page varchar;
+	- Incorporated concept of a confirmation page to Form.pm and Viewer.pm -
+	  uses ##name## tags....	
+
+0.47 Wen Sep 01 21:45:43 MST 2004
+	- Fixed 'stupid' issue - forgot to store data if not stored....
+
+0.46 Wen Aug 25 20:10:21 MST 2004
+	- Fixed issue with requiring a valid email if not sending an email
+
+0.45 Fri Aug 20 17:07:28 MST 2004
+	- Added page _ of _ to form.pm page title
+	- Added ability to use spaces in multiple email addresses on forms
+	- Using Date::Calc to identify whether to shut off link in Form.pm
+	    using sql to figure it out for Viewer.pm
+
+0.44 Sat Aug 14 21:13:43 MST 2004
+	- Modified text Email -> E-Mail
+	- Changed mkdir to mkpath (using File::Path)
+	- Removed replacement of \r\n and \n\n to \n in sub_csv (Output.pm)
+	- Added valign=top to html output for data lines (not header)
+
+0.43 Tue Aug 03 21:06:23 MST 2004
+	- Updated sql_update
+	- Modified xcel output - added merge and a few other functions
+
+0.42 Fri Jun 25 09:24:32 MST 2004
+	- Began full rewrite
+	- Updated PerlSetVars ... more commonality in basic variables (multi-app)
+	- Created Wizard for addition of forms ... broke Form.add into three parts
+	- Added Types module for editing/adding default types
+	- Added Defaults module for editing/adding default types and their 
+	  requirements
+	- Added Validation module for editing/adding validation
+	- Added Output.pm - an OO style output module to make it more flexible
+	- Added logging function - to log actions, set via PerlSetVar
+	- Added HTML as possibility for output
+	- Added Single Workbook - Multiple Worksheet output
+	- Added Single Workbook - Single Worksheet output
+	- Modified form_types table - shorter names.....
+	  To 'upgrade' need only dump the existing table:
+	      pg_dump -aD -t form_types -f ftypes.sql <table_name>
+	  Edit the dump file - change the following names (old => new):
+	      type_name     => type
+		  row_count     => row
+		  col_count     => col
+		  size_count    => size
+		  max_length    => max
+		  checked       => checkd
+		  readonly      => read
+		  multiple      => mult
+		  tab_index     => tab
+		  css_class     => css
+	  Then drop the old table:
+	      DROP TABLE form_types;
+		  DROP SEQUENCE form_types_sequence;
+	  And add the new:
+	      create sequence "form_types_sequence";
+	      create table "form_types" (
+	        "id" integer primary key not null
+	          default nextval( 'form_types_sequence' ),
+	        "type" varchar,
+	        "name" varchar default '0',
+	        "value" varchar default '0',
+	        "row" varchar default '0',
+	        "col" varchar default '0',
+	        "size" varchar default '0',
+	        "max" varchar default '0',
+	        "checkd" varchar default '0',
+	        "read" varchar default '0',
+	        "mult" varchar default '0',
+	        "tab" varchar default '0',
+            "css" varchar default '0',
+            "src" varchar default '0',
+            "alt" varchar default '0'
+          );
+	  Finally, add back the original data so that the indices remain unchanged
+	      pgsql -U apache -f ftypes.sql <table_name>
+	- Rebuilt module into a more proper set up - using lib for the modules
+	- Will need to remove "none" entry from form_validate - can do through gui
+	- Added templating for text and html file output
+	  Requires two columns to be added to the form_data database, txt_templ and
+	  html_templ
+	  To add - need only do:
+	      alter table form_data add column "txt_templ" text;
+		  alter table form_data add column "html_templ" text;
+
+0.41 Thu Jun 10 11:26:03 MST 2004
+	- Cleaned up FIXME in Viewer - db_finish added for appbase_relocate is
+	  form dne
+	- Added Calendar framing to config
+	- Added Calendar title to config
+	
+0.40 Fri Jun 04 20:45:10 MST 2004
+	- check_email was not working - too stringent, changed to is_email
+	
+0.39 Sat May 08 11:45:29 MST 2004
+	- Corrected ht_input call wrt checked for checkboxes and radio
+	  buttons - still need to come back and 'fix' radio buttons proper
+
+0.38 Thu Jan 22 20:05:22 MST 2004
+	- Due to bits - put in error checking code to limit year to 
+	  2030, doesn't throw an error - modifies it and goes on
+
+0.37 Sat Jan 17 22:25:12 CST 2004
+	- Completed Form::Element.
+	- Completed look through Viewer.
+
+0.36 Fri Jan 16 23:32:43 CST 2004
+	- Working on Form::Element.
+	- Completed do_add, form_info, do_main, and element_form. 
+
+0.35 Mon Jan 12 22:31:43 CST 2004
+	- Completed the Form cleanup. There is an "in" select statement
+	  that needs to be a join and a date check that should use Date
+	  Calc.
+	- Started to look at Form::Element.
+	- Added the META.yml file to the distribution.
+
+0.34 Tue Dec 30 22:51:07 CST 2003
+	- Cleaning up Form.pm's CSS and code.
+	- Moved the framing for the calendar portion to a variable.
+	- Moved the submit inputs to use ht_submit() rather than ht_input().
+	- completed the form_form function, do_delete, and do_add in Form.pm.
+
+0.33 Sat Dec 27 10:37:34 CDT 2003
+	- Added link to bottom of the page in Elements.pm
+
+0.32 Fri Dec 26 23:48:22 CDT 2003
+	- Changed Email to E-Mail in Form.pm
+	- Added help to column headings in Form Details, Element.pm:
+	
+0.31 Sun Dec 14 09:21:13 CDT 2003
+	- Commented out swbk and swksht saves in order to 'release' on cogni
+	- Updated Help.data - still needs to be cleaned up and clarified
+	- Added Formbuilder.examples.data to repository
+
+0.30 Thu Dec 11 11:00:23 CDT 2003
+	- separated out gathering excel formatting data - Viewer.pm
+	- stubbed for excel builds in - Viewer.pm
+	- added regex for csv data
+	- finished csv, multi and single
+
+0.29 Wen Dec 10 11:45:20 CDT 2003
+	- save uploads to save dir
+	
+0.28 Wen Dec 10 12:00:23 CDT 2003
+	- Add output formats to Viewer.pm
+		- store locally as
+			- multiple csv
+			- single csv
+			- multiple wkbks
+			- multiple wkshts
+			- single wksht
+		- email as
+			- csv
+			- wkbk
+			- text
+0.27 Tue Dec  9 18:02:12 CDT 2003
+	- Added conversions for vertical and horizontal alignment
+	- Cleaned up html in Form.pm and Element.pm
+	- Added new options to Form.pm and the schema
+		- send_email
+		- store_as
+		- dir
+		- filename
+		- send_as
+		- as_excel
+	- Added OutputDir to PerSetVars and FormBuilder.pm
+
+0.26 Tue Dec  9 00:17:22 CDT 2003
+	- Added ability to generate generic xcel doc from form data
+	- Added ability to generate templated xcel doc from form data
+
+0.25 Mon Dec  8 11:19:32 CDT 2003
+	- Added support to send form submission to mulitple email addresses
+	- Added link for going to next/prev element when editing elements
+	- Added ability to duplicate a form
+	- Added support for excel to config, FormBuilder.pm, Form.pm and Element.pm
+	- Added pre-req for excel stuff to Makefile.pl
+	- Started adding excel stuff to Viewer.pm - just need to add generic
+	  spreadsheet, add attachment, and testing.....
+	- Corrected MANIFEST to reflect html dir
+
+0.24 Sun Dec  7 21:45:47 CDT 2003
+	- Removed script from sql dir
+	- Cleaned up css
+	- Added 'no forms' message Form.pm
+	- Added 'no elements' message to Element.pm
+	- Added 'no forms' message to Viewer.pm
+	- Fixed typeo in sql file - countries (postgresql)
+	- Added form id to delete - Element.pm
+	- Fixed Add as New - Element.pm
+	- Fixed multiple select email submission - Viewer.pm 
+
+0.23 Sat Dec  6 21:37:34 CDT 2003
+	- Cleaned up most FIXMEs in Element.pm
+	- Added time formatting to conf and et.al
+	- Changed css - eliminated fb_ and fb_*_ 
+	- Add ability to put in multiple email address recipients (,-delimited)
+	
+0.22 Fri Dec  5 23:30:22 CDT 2003
+	- Normalized the variables in the setvar list
+	- Cleaned up FormBuilder.pm
+	- Cleaned up Viewer.pm 
+	- Cleaned up Form.pm
+	
+0.21 Wed Oct  8 22:08:53 CDT 2003
+	- Fixed a bug in using Text::Wrap.
+	- Also fixed a bug with the radio buttons.
+
+0.20  Sat Aug 16 00:00:09 CDT 2003
+	- Added css to Elements.pm
+	- Cleaned up Elements.pm
+
+0.19  Wen Aug 13 01:33:08 CDT 2003
+	- Did some clean up work on Form.pm
+	- Added more css to Form.pm
+	- Added the aforementioned css modifications to the css...
+	
+0.18  Tue Aug 05 12:15:54 CDT 2003
+	- Added start/stop date error for stop before start
+	- Removed form element from viewer do_main
+
+0.17  Tue Aug 05 01:09:11 CDT 2003
+	- Added calendar popup to form
+
+0.16  Tue Jul 29 10:38:58 CDT 2003
+	- Working on clean up - email
+
+0.15  Fri Jul 25 10:28:50 CDT 2003
+	- Cleared out cookies from FormBuilder.pm
+	- Converted to ident/name (as opposed to name/display name)
+	- Added 'Add as new' to Element edit
+	- Added oracle and mysql stubs
+	- Fixed name of filename in email.....
+
+0.14  Thu Jul 24 11:15:28 CDT 2003
+	- Used a hash for the name/value pairs in the email so that dups, like
+	  'checkboxes' won't show more than once...
+	- 'Fixed' size count on text field
+	- Added Text::Wrap to libs for email output
+	- Email output looking better
+	- Tweaked the sql and the dirs for it
+
+0.13  Wen Jul 23 20:31:22 CDT 2003
+	- Fixed a few trivial items
+	- Worked on Help - whew
+	- Haven't tested yet - but the help sql is written
+
+0.12  Wen Jul 23 12:02:47 CDT 2003
+	- Filled out POD's
+	- Added timestamp to default_elements
+	- Cleaned up SQL
+	- Thought about Life, Liberty and the Pursuit of Happiness and decided
+	  it was all a fallacy and that I should be satisfied with contentment
+	- Added display_name to the forms
+	- Added a few files to the MANIFEST (help sql and css)
+	  
+0.11  Tue Jul 22 11:30:34 CDT 2003
+	- Email now sends uploads 
+	- Help db files are in sql dir - need proper cleanup
+	- Now its primarily clean up and testing 
+
+0.10  Mon Jul 21 13:59:40 CDT 2003
+	- Added description to email
+	- Removed submit from being sent in the email
+	- Added itdentifying which enctype to send for viewer
+	- Working on email for upload
+
+0.09  Sun Jul 20 13:09:52 CDT 2003
+	- Started adding help
+
+0.08  Sat Jul 19 22:46:48 CDT 2003
+	- Made active require all pages to have a submit element
+	- Mild clean up.... in various areas
+	- Email works - except for upload
+	- Added upload to form - still need to add encoding for it to work
+	- Added 'feature' if a submit element is deleted and it is the
+	  only submit left - confirmation makes the user aware and if the
+	  element is deleted, then the form is also disabled
+
+0.07  Fri Jul 18 13:47:36 CDT 2003
+	- Still need to fix initial SQL
+	- Made more modifications to the Admin section
+	- Validation is up and 'running'
+	- Email is happenin but needs cleaning as well
+
+0.06  Thu Jul 17 23:53:18 CDT 2003
+	- Had to change the HTML, just couldn't stand it any longer... still
+	  needs a good going through
+	- Viewer is displaying most element types - but still needs to be 
+	  finished
+	- Viewer still needs checkvals to be finished
+	- Viewer still needs email section to be done
+	- Viewer and Element still need upload to be done
+	- Overall things are starting to come together
+	- Made changes to the sql file - reset wasn't happy
+
+0.05  Wen Jul 16 16:15:00 CDT 2003
+	- Altered Description in Form::Element::do_main
+	- Began work on Viewer
+	  Still need to finish form_checkvals, form_form, and form_email
+	- SQL needs to be fixed in .sql file for form default elements
+	- Still have errors to clean up - but .... that will come...
+
+0.04  Tue Jul 15 23:46:00 CDT 2003
+	- Form::Element::do_main is throwing an undef error
+          Magic::HTML line 151
+        - Form::Element, do_main, do_add, do_edit, do_delete
+          are 'working and awaiting initial review
+	- Form::Element::do_view needs an overhaul!!
+	- Basically, the admin side functions any additions should be mentioned
+	  Curious about what all to show in do_view... element, question or
+          the whole page - probably best to display the individual page ...
+	  hmmmmm - could just come from the viewer.... perhaps/not
+	- There are a few FIXME's to ponder - but trivial items they are
+
+0.03  Sun Jul 13 19:12:00 CDT 2003
+	- Rough Draft of Form complete
+	  does main, edit, delete, and add
+	- Began Form::Element
+
+0.02  Sun Jul 13 01:17:10 CDT 2003
+	- Got the libs to load, built conf file and postgres file
+	- Got the init started in FormBuilder.pm 
+	- do_main started and displaying (Form)
+	- Working on do_add (Form)
+
+0.01  Sat Jul 12 12:37:41 2003
+	- original version; created by h2xs 1.22 with options
+	- Adjusted the makefiles to get version from FormBuilder.pm
+	- Updated the Manifest file.
+	- Added the stub for the sql file and the sql directory.
+	- Added a stub conf file.
+	- Stubbed out Form.pm and Element.pm
+	- Partial stub of Viewer.pm
+

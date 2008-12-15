@@ -1,0 +1,343 @@
+--
+-- HELP
+--
+
+--
+-- Help Categories
+--
+INSERT INTO help_categories
+    ( parent_id, ident, name )
+    VALUES
+    ( 0, 'a', 'Alchemy');
+
+INSERT INTO help_categories
+    ( parent_id, ident, name )
+    VALUES
+    ( ( SELECT id FROM help_categories WHERE ident = 'a' ),
+        'a:fb', 'FormBuilder');
+INSERT INTO help_categories
+    ( parent_id, ident, name )
+    VALUES
+    ( ( SELECT id FROM help_categories WHERE ident = 'a:fb' ),
+        'a:fb:f', 'Form');
+INSERT INTO help_categories
+    ( parent_id, ident, name )
+    VALUES
+    ( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f' ),
+        'a:fb:f:e', 'Element');
+
+--
+-- Help Items
+--
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f:e' ),
+	'a:fb:f:e:row_count', '2003-07-20 17:56:25.095588-05', 'Rows',
+	'<b>rows = number [CN]</b><br>This attribute specifies the number of visible text lines. Users should be able to enter more lines than this, so user agents should provide some means to scroll through the contents of the control when the contents extend beyond the visible area.<br><br><b>Applies to:</b><br>- textarea');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f:e' ),
+	'a:fb:f:e:add_param', '2003-07-20 17:57:35.60569-05', 
+	'Additional Parameters',
+	'This field allows the user to put addtional parameters in the form element. For example, to utilize javascript and/or onmouseover and the like, the user should enter that data here.<br><br><b>Note:</b> There are no safety checks performed on this field, thus - be careful that what is placed here is valid html.<br><br><b>Applies to:</b><br>- All elements except <i>hidden</i>');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f:e' ),
+	'a:fb:f:e:error_msg', '2003-07-20 18:02:59.036097-05', 'Error Message', 
+	'An error message is required for all elements that are <b>required</b>, have <b>requirements</b> or both. <br><br>Be sure to make the error message for each element explicit so that the end-user can easily identify the error.<br><br>All errors are displayed at the top of the reposted form.<br><br><b>Applies to:</b><br>- All required elements<br>- All elements with requirements');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f:e' ),
+	'a:fb:f:e:max_length', '2003-07-20 18:04:53.240609-05', 'Maxlength',
+	'<b>maxlength = number [CN]</b><br>When the type attribute has the value "text" or "password", this attribute specifies the maximum number of characters the user may enter. This number may exceed the specified size, in which case the user agent should offer a scrolling mechanism. The default value for this attribute is an unlimited number.<br><br><b>Applies to:</b><br>- password<br>- text field');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f:e' ),
+	'a:fb:f:e:multiple', '2003-07-20 18:06:18.986898-05', 'Multiple',
+	'<b>multiple [CI]</b><br>If set, this boolean attribute allows multiple selections. If not set, the SELECT element only permits single selections.<br><br><b>Applies to:</b><br>- select');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f:e' ),
+	'a:fb:f:e:name', '2003-07-20 18:07:12.203333-05', 'Name',
+	'<b>name = cdata [CI]</b><br>This attribute assigns the control name.<br><br><b>Applies to:</b><br>- All elements');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f:e' ),
+	'a:fb:f:e:readonly', '2003-07-20 18:07:47.267306-05', 'Readonly', 
+	'<b>readonly [CI]</b><br>When set for a form control, this boolean attribute prohibits changes to the control.<br><br><b>Applies to:</b><br>- textarea<br>- text-field');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f:e' ),
+	'a:fb:f:e:size_count', '2003-07-20 18:10:05.738343-05', 'Size',
+	'<b>size = cdata [CN]</b><br>Size has two distinct concepts relative to their element:<br><br><u>Text Field:</u> This attribute tells the user agent the initial width of the control. The width is given in pixels except when type attribute has the value "text" or "password". In that case, its value refers to the (integer) number of characters.<br><br><u>Select:</u> If a SELECT element is presented as a scrolled list box, this attribute specifies the number of rows in the list that should be visible at the same time. Visual user agents are not required to present a SELECT element as a list box; they may use any other mechanism, such as a drop-down menu.<br><br><b>Applies to:</b><br>- password<br>- text field<br>- select<br>- upload');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f:e' ),
+	'a:fb:f:e:src', '2003-07-20 18:11:33.255196-05', 'SRC', 
+	'<b>src = uri [CT]</b><br>When the type attribute has the value "image", this attribute specifies the location of the image to be used to decorate the graphical submit button.<br><br><b>Applies to</b><br>- button<br>- reset<br>- submit<br>');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f:e' ),
+	'a:fb:f:e:tab_index', '2003-07-20 18:13:13.737106-05', 'Tab Index',
+	'<b>tabindex = number [CN]</b><br>This attribute specifies the position of the current element in the tabbing order for the current document. This value must be a number between 0 and 32767. User agents should ignore leading zeros.<br><br><b>Applies to:</b><br>- All elements except <i>hidden</i> and <i>html</i>');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f:e' ),
+	'a:fb:f:e:value', '2003-07-20 18:14:14.661088-05', 'Value', 
+	'<b>value = cdata [CA]</b><br>This attribute specifies the initial value of the control. It is optional except when the type attribute has the value "radio" or "checkbox".<br><br><b>Applies to:</b><br>- All elements except <i>hidden</i> and <i>html</i>');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f' ),
+	'a:fb:f:email_address', '2003-07-22 15:17:02.943973-05', 'Email Address',
+	'This is the email address that form submissions will be sent to. <br><br><b>Note:</b><br>If a user cancels out of a form, no email is sent.');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f' ),
+	'a:fb:f:page_count', '2003-07-22 15:27:44.055365-05', 'Page Count',
+	'This allows you to allot the number of pages in your form. You can always come back and alter the number of pages.<br><br><b>Notes:</b><br>For every page allocated, a <i><b>Submit</b></i> element is required for the form to be made <b>Active</b><br><br>If you decrease the number of pages and have elements attached to a page no longer allocated, then those elements are no longer accessible until you return the <i><b>Page Count</b></i> to a number greater than or equal to the page number those elements are bound to. Elements are not deleted when this occurs, but remain until the form itself is deleted.');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f' ),
+	'a:fb:f:redirect_confirm', '2003-07-23 00:13:51.605917-05', 
+	'Redirect Confirm',
+	'This will be the location that the end-user is re-directed to following the valid submission of a form.');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f' ),
+	'a:fb:f:redirect_cancel', '2003-07-23 00:14:35.47225-05', 'Redirect Cancel',
+	'This will be the location that the end-user is re-directed when a user <i><b>Cancels</b></i> out of the form.');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f' ),
+	'a:fb:f:text', '2003-07-23 00:19:43.098782-05', 'Text',
+	'This is the field for any html that should be displayed on all of the form pages prior to all elements but after the <i><b>Pre-Text</b></i> on a given page.');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f:e' ),
+	'a:fb:f:e:form_default', '2003-07-23 01:22:04.096276-05', 'Default Element',
+	'There are several <i><b>Default Element Types</b></i> available, each only <i>require</i> the <i><b>Page Number</b></i> and <i><b>Question Number</b></i> fields (Any data you enter on the page will override the defaults)<br><br>The Following is a listing of the available elements:<br><br><b><u>countries:</u></b><br>Provides a <i>select</i>, or drop-down menu of countries<br><u>ex html:</u><br><select name="countries" size="1"><br><option value="AF">Afghanistan</option><br></select><br><u>ex src:</u><br>&lt;select name="countries" size="1&gt;<br>&lt;option value="AF"&gt;Afghanistan&lt;/option&gt;<br>&lt;/select&gt;<br><br><b><u>date:</u></b><br>This provides a text-field with the current date provided<br><u>ex html:</u><br><input type="text" name="date" value="2003-07-23"  size="10"><br><u>ex src:</u><br>&lt;input type="text" name="date" value="2003-07-23"  size="10"&gt;<br><br><b><u>none:</u></b><br>Nothing implied - has no effect on an element.<br><br><b><u>time:</u></b><br>This provides a text-field with the current time provided<br><u>ex html:</u><br><input type="text" name="time" value="01:05:53"  size="8"><br><u>ex src:</u><br>&lt;input type="text" name="time" value="01:05:53"  size="8"&gt;<br><br><b><u>states:</u></b><br><u>ex html:</u><br><select name="states" size="1"><br><option value="AL">Alabama</option><br></select><br><u>ex src:</u><br>&lt;select name="states" size="1"&gt;<br>&lt;option value="AL"&gt;Alabama&lt;/option&gt;<br>&lt;/select&gt;<br><br><b><u>reset:</u></b><br><u>ex html:</u><br><input type="reset" name="reset" value="reset"><br><u>ex src:</u><br>&lt;input type="reset" name="reset" value="reset"&gt;<br><br><b>Note:</b><br>After a <i><b>Default Element</b></i> is created, editing the element will provide an oppurtunity to modify the given <i><b>Value</b></i>.');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f:e' ),
+	'a:fb:f:e:pre_text', '2003-07-23 01:34:54.916338-05', 'Pre-Text',
+	'This is the field for any html that should be displayed before the current form element.');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f:e' ),
+	'a:fb:f:e:post_text', '2003-07-23 01:35:13.621274-05', 'Post Text',
+	'This is the field for any html that should be displayed after the current form element.');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f' ),
+	'a:fb:f:active', '2003-08-24 15:56:09.556087-05', 'Active',
+	'A form can only be active if all of the pages (<i>Page Count</i>) contain at least one <i><b>submit</b></i> element. In other words, all pages must be able to submit before the form can be made active<br><br>A page can be active but still not be displayed due to its start and stop dates. This allows you to have a form to become available only on a particular date.<br><br><b>Note:</b><br>When deleting form elements, if you delete the last submit element from any one page in the form, the form will automatically become <i><b>Disabled</b></i><br>');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f' ),
+	'a:fb:f:post_text', '2003-08-24 16:10:29.497827-05', 'Post-Text',
+	'This is the field for any html that should be displayed on all of the form pages following all of the elements on a given page.<br><br>Think of Post-Text like footer text for all your pages.');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f:e' ),
+	'a:fb:f:e:required', '2003-07-23 01:56:11.318151-05', 'Required',
+	'Elements may be required for a page to pass validation. What data is expected should be specified using the available <i><b>Requirements</b></i>.');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f' ),
+	'a:fb:f:description', '2003-08-24 15:57:26.188425-05', 'Description',
+	'The description of a form serves two purposes:<br><br><b>1.</b> It is displayed in the end-user view of the Forms Listing (not the administrative view)<br><br><b>2.</b> It is displayed in the body of the email sent to the specified email address.');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f' ),
+	'a:fb:f:display_name', '2003-08-24 15:58:00.444726-05', 'Display Name', 
+	'This is the name that will be displayed in the Listing of Forms in both the Admin and Viewer interfaces.');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f' ),
+	'a:fb:f:email_subject', '2003-08-24 15:59:17.525087-05', 'Email Subject',
+	'This is what will be used for the <i><b>Subject</b></i> line in the email sent to the e-mail address listed above following a submission by a user.');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f' ),
+	'a:fb:f:frame', '2003-08-24 16:07:56.425206-05', 'Frame', 
+	'Specifying a <i><b>Frame</b></i> allows you to customize the look and feel of a particular form by specifying a template to attach your form to.<BR><br>It uses the same syntax as the KrKit::Xpander libraries.<br><br><b>Examples:</b><br>A template in your <i>templates</i> directory named <i>my_template.tp</i> would be specified as:<BR><br><code>templates;my_template.tp</code><BR><br>For a blank template, insert the following in the Frame field:<BR><br><code>plain</code><br><br><B>Note:</b><br>To learn how to properly set up a template to attach forms too, visit the Support Center''s help files about the Xpander. FormBuilder works directly with the Xpander requirements to properly set up a template.');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f' ),
+	'a:fb:f:name', '2003-08-24 16:08:49.576161-05', 'Name',
+	'This is the name of the form. The name selected should be uri safe for it will be used in the url for the form to be viewed.<br><br>Another words, you must specify a name that does not contain spaces, or boolean characters, such as qustion marks, or percent signs.');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f' ),
+	'a:fb:f:pre_text', '2003-08-24 16:10:57.399492-05', 'Pre-Text',
+	'This is the field for any html that should be displayed on all of the form pages prior to all elements on a given page.<br><br>Think of Pre-Text as header text for all your form pages.');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f' ),
+	'a:fb:f:start_date', '2003-08-24 16:12:06.641097-05', 'Start Date',
+	'This field determines when a form is accessible. This combined with the <i><b>Active</b></i> field allows you to manage when a form can be accessed.<br><br><b>Note:</b><br>When building a form, be sure that the date in this field is in the past, otherwise you will not be able to view your form properly as you built it.');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f' ),
+	'a:fb:f:stop_date', '2003-08-24 16:12:29.104867-05', 'Stop Date', 
+	'This field determines when a form is no longer accessible, regardless of the <i><b>Active</b></i> field.<br><br><b>Note:</b><br>When building a form, be sure that the date in this field is in the future, otherwise you will not be able to view your form properly when creating it.');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f:e' ),
+	'a:fb:f:e:alt', '2003-08-24 16:15:33.748687-05', 'Alt',
+	'<b>alt = text [CS]</b><br>For user agents that cannot display images, forms, or applets, this attribute specifies alternate text that is displyed to the user in place of the element that is unable to be displayed. The language of the alternate text is specified by the lang attribute.<br><br><b>Applies to:</b><br>- button<br>- password<br>- reset<br>- submit<br>- text field<br>- upload');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f:e' ),
+	'a:fb:f:e:css_class', '2003-08-24 16:17:14.009573-05', 'CSS Class',
+	'<b>class = cdata-list [CS]</b><br>This attribute assigns a class name or set of class names to an element that you would like to call from your <b>Cascading Style Sheet</b>. Any number of elements may be assigned the same class name or names. Multiple class names must be separated by white space characters.<br><br><b>Applies To:</b><br>- All elements except <i>hidden</i>');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f:e' ),
+	'a:fb:f:e:checked', '2003-08-24 16:18:20.050992-05', 'Checked',
+	'<b>checked [CI]</b><br>When the type attribute has the value "radio" or "checkbox", this boolean attribute specifies that the button is on, i.e., checked, when a user first sees the form for the first time. User agents must ignore this attribute for other control types.<br><br><b>Note:</b> For a select box to have a particular element displayed by default, list it first in the list of value pairs (see help on element types).<br><br><b>Applies to:</b><br>- radio<br>- checkbox<br><br>');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f:e' ),
+	'a:fb:f:e:col_count', '2003-08-24 16:19:48.227024-05', 'Cols',
+	'<b>cols = number [CN]</b><br>This attribute specifies the visible width in average character widths for the textarea element. <br><br>Users should be able to enter longer lines than this, so user agents should provide some means to scroll through the contents of the control when the contents extend beyond the visible area. User agents may wrap visible text lines to keep long lines visible without the need for scrolling.<br><br><b>Applies to:</b><br>- textarea');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f:e' ),
+	'a:fb:f:e:form_type', '2003-08-24 16:23:37.92152-05', 'Element Type',
+	'There are several element types available:<br><br><b>button:</b> Creates a push button. User agents should use the value of the value attribute as the button''s label.<br><br><b>checkbox:</b> Creates a checkbox.<br><br><b>hidden:</b> Creates a hidden control.<br><br><b>html:</b> This is not a form elements but actual html.<br><br><b>password:</b> Like "text", but the input text is rendered in such a way as to hide the characters (e.g., a series of asterisks). This control type is often used for sensitive input such as passwords. Note that the current value is the text entered by the user, not the text rendered by the user agent.<br><br><b>radio:</b> Creates a radio button.<br><br><b>reset:</b> Creates a reset button.<br><br><b>select:</b> The SELECT element creates a menu. Each choice offered by the menu is represented by an OPTION element. A SELECT element must contain at least one OPTION element.<br> <br>- The name used for the SELECT is determined by the <i><b>Name</b></i> of the element.<br><br>- Each OPTION requires a name and a value. Each name/value pair must be written as: <code>"name::value"</code>. Each pair should be delimited by a comma. Thus, for three OPTIONS, you would have: <code>"name::value","name::value","name::value"</code><br><br>- In order to cause a particular OPTION to be the first displayed, edit the element such that "name::value" pair is listed first.<br><br><b>submit:</b> Creates a submit button.<br>- In order to create a <i>cancel</i> button, you must use the keyword <code>cancel</code>, the value can still be specified.<br><br><b>textarea:</b> The TEXTAREA element creates a multi-line text input control. User agents should use the contents of this element as the initial value of the control and should render this text initially.<br><br><b>text field:</b> Creates a single-line text input control.<br><br><b>upload (file):</b> Creates a file select control. User agents may use the value of the value attribute as the initial file name.<br>');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f:e' ),
+	'a:fb:f:e:page_number', '2003-08-24 16:27:03.647329-05', 'Page Number',
+	'The page number specifies which page (within the number specified in the form''s data) the specific element should be displayed. ');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f:e' ),
+	'a:fb:f:e:question_number', '2003-08-24 16:29:28.873424-05',
+	'Question Number',
+	'The question number is used to sort the list of elements. This is so that many elements on the same page will be displayed in the manner requested by the user. The display of the list in the FormBuilder reflects the order of the final form page.<br><br><b>Note:</b><br>When creating a number of elements on one page, when you have multiple pages for your form, you can specify your page numbers to have decimals, such as having your first element listed as "1.0", the next "1.1", etc. Then, on page two, you can start your element sequence as "2.0", "2.1", "2.2", etc.');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f:e' ),
+	'a:fb:f:e:requirements', '2003-08-24 16:33:09.476972-05', 'Requirements',
+	'There are several <i><b>Requirements</b></i> available. If an element is not <i><b>Required</b></i> but does have requirements, the requirements will only be validated if the user enters data into the text field. If it is <i><b>Required</b></i> then the element will be validated until the particular page passes the requirements.<br><br><b>none</b><br>No Requirements<br><br><b>not none</b><br>Requires a <i>value</i> that is not the word ''none''<br><br><b>email</b><br>Provides several checks for requirements:<br><br>- It checks the syntax of an email address.<br><br>- It checks if there are any MX records or A records for the domain part of the email address.<br><br>- It tries to connect to an email server directly via SMTP to check if the mailbox is valid.  Old versions of this module performed this check via the VRFY command. Now the module uses another check; it uses a combination of MAIL and RCPT commands which simulates sending an email.  It can detect bad mailboxes in many cases.<br><br><b>text only</b><br><br><b>number</b><br>This checks to see if the <i>value</i> is a valid text ident. This means it has text, and none of the text is a space.<br><br><b>url</b><br>This requires that the <i>value</i> contains at least <code>http://</code><br><br><b>text</b><br>This checks to see if the <i>value</i> contains text. This is a fairly broad range of things mainly it must be defined and have a length that is greater than 0.<br><br><b>not blank</b><br>This makes sure that the <i>value</i> doesn''t contain only white space.<br><br><b>date</b><br>This function takes the <i>value</i> and verifies that it is indeed a valid date. The date must be of the form "MM-DD-YYYY".<br><br><b>ip address</b><br>This checks to see if the <i>value</i> is a valid ip address.<br><br><b>mac address</b><br>This checks to see if the <i>value</i> contains the valid characters for a MAC address. It does not currently check to see if the MAC address is of the proper length.<br><br><b>time</b><br>This function checks to see if the  <i>value</i> does contain a valid time. A valid date is in military time ( 0-23:0-59 ) seconds are optional.<br><br>');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f' ),
+	'a:fb:f:ident', '2003-09-28 23:11:32.751995-05', 'Ident',
+	'This is the identity of the form. The ident selected should be uri safe for it will be used in the url for the form to be viewed. ');
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f' ),
+	'a:fb:f:save_as','2003-09-28 23:11:32.751995-05','Store Locally As',
+	'Could be:<br /><ul><li>Do Not Save</li><li>Multiple CSV Files</li><li>Single CSV File</li></ul>' );
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f' ),
+	'a:fb:f:dir','2003-09-28 23:11:32.751995-05','Save Directory',
+	'The directory to save results to' );
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f' ),
+	'a:fb:f:filename','2003-09-28 23:11:32.751995-05','Filename',
+	'Name to save data files as' );
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f' ),
+	'a:fb:f:send_email','2003-09-28 23:11:32.751995-05','Send Email',
+	'Email can be sent, accompanied with the data or as a notification only' );
+
+INSERT INTO help_items 
+	( category_id, ident, created, name, content ) 
+	VALUES 
+	( ( SELECT id FROM help_categories WHERE ident = 'a:fb:f' ),
+	'a:fb:f:send_as','2003-09-28 23:11:32.751995-05','Send Data As',
+	'Format that the data is sent as. Data is always sent as inline text, but it can also be attached as text or a csv file' );
+

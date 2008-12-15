@@ -1,0 +1,105 @@
+FormBuilder version 0.43
+========================
+
+The README is used to introduce the module and provide instructions on
+how to install the module, any machine dependencies it may have (for
+example C compilers and installed libraries) and any other information
+that should be provided before the module is installed.
+
+A README file is required for CPAN modules since CPAN extracts the
+README file from a module distribution so that people browsing the
+archive can use it get an idea of the modules uses. It is usually a
+good idea to provide version information here so that people can
+decide whether fixes for the module are worth downloading.
+
+INSTALLATION
+
+To install this module type the following:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
+DATABASE
+
+  Load the appropriate schema file into your database according to your
+  particular database's methods. Note that the schema files contain only
+  the table and sequence schema, they do not contain any authorization
+  information for the database. It is up to the installer to set these to
+  their desired preference.
+
+  There is a data file that accompanies the distribution - you will need to
+  load the appropriate file (FormBuilder.*.data) for the application to 
+  function properly.
+
+  There is also an examples file that may be loaded for form examples,
+  (FormBuilder.*.examples).
+
+  If you are going to take advantage of the KrKit::Help system, be sure to
+  load the accompanying help data file (Help.*.data).
+
+APACHE
+
+  Configure your apache installation for mod_perl and Alchemy FormBuilder,
+  see the FormBuilder.conf file for an example configuration.
+
+  "perldoc Alchemy::FormBuilder" details all of the configuration options.
+
+  Copy or create templates for your installation of FormBuilder. The
+  default templates are located in the docs directory of the source
+  distribution - also is an accompanying style sheet.
+
+  After these steps have been completed you have a new way to introduce
+  forms to the web with an accompanying back-end for parsing and handling
+  the output from these forms.
+
+  Be sure to review the FormBuilder.conf file for the necessary SetVars - some
+  of the variables are specific to your directory structure - for those
+  directories that are annotated - the user/owner of the apache web process
+  will need to have read/write access in order for the application's save
+  features to work - especially those associated with file upload.
+
+DEPENDENCIES
+
+This module requires these other modules and libraries:
+
+  mod_perl 1.x
+  
+  KrKit
+  POSIX
+  Apache2::Request
+  Text::Wrap
+  Net::SMTP
+  MIME::Lite
+  File::Copy
+  File::Path
+
+DIRECTORY DATA
+
+With the way this application works - in order to save data and still make
+it so that a regular user has access ... the following is suggested:
+  Make the apache web server user a member of the group that has access to
+  the designated directories.
+  The save directories need to be group r/w:
+    chmod 0775 <directory name>
+	or
+	chmod 0775 `find ./ -type d`
+  In order to cause the files added/directories created to maintain permissions,
+  set the sgid bit:
+    chmod g+s <directory name>
+	or
+	chmod g+s `find ./ -type d`
+It's just a suggestion....
+
+Have fun and good luck - 8)
+
+LAST UPDATED
+  $Date: 2005/09/02 14:05:29 $
+  
+COPYRIGHT AND LICENCE
+
+  Copyright (C) 2004 by Ron Andrews and Nicholas Studt. All Rights Reserved.
+
+  You may distribute under the terms of either the GNU General Public
+  License or the Artistic License, as specified in the Perl README file.
